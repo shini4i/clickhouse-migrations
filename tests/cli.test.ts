@@ -16,7 +16,7 @@ const execute = async (script: string, execOptions: any) => {
 };
 
 const envVars = {
-  CH_MIGRATIONS_HOST: 'http://sometesthost:8123',
+  CH_MIGRATIONS_URL: 'http://sometesturl:8123',
   CH_MIGRATIONS_USER: 'default',
   CH_MIGRATIONS_PASSWORD: '',
   CH_MIGRATIONS_DB: 'analytics',
@@ -31,12 +31,12 @@ describe('Execution tests', () => {
   it('No parameters provided', async () => {
     const result = await execute('node lib/cli.js migrate', '.');
 
-    expect(result.stderr).toBe("error: required option '--host <name>' not specified\n");
+    expect(result.stderr).toBe("error: required option '--url <name>' not specified\n");
   });
 
   it('No migration directory', async () => {
     const command =
-      "node ./lib/cli.js  migrate --host=http://sometesthost:8123 --user=default --password='' --db=analytics --migrations-home=/app/clickhouse/migrations";
+      "node ./lib/cli.js  migrate --url=http://sometesturl:8123 --user=default --password='' --db=analytics --migrations-home=/app/clickhouse/migrations";
 
     const result = await execute(command, '.');
 
@@ -55,7 +55,7 @@ describe('Execution tests', () => {
 
   it('Incorrectly named migration', async () => {
     const command =
-      "node ./lib/cli.js  migrate --host=http://sometesthost:8123 --user=default --password='' --db=analytics --migrations-home=tests/migrations/bad";
+      "node ./lib/cli.js  migrate --url=http://sometesturl:8123 --user=default --password='' --db=analytics --migrations-home=tests/migrations/bad";
 
     const result = await execute(command, '.');
 
