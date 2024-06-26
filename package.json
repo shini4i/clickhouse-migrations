@@ -1,5 +1,5 @@
 {
-  "name": "clickhouse-migrations",
+  "name": "@shini4i/clickhouse-migrations",
   "version": "0.1.14",
   "description": "ClickHouse Migrations",
   "bin": {
@@ -11,17 +11,20 @@
     "build": "rm lib/*; tsc",
     "test": "jest --config jestconfig.json",
     "coverage": "jest --config jestconfig.json --coverage",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "eslint ./src --ext .ts",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
   },
-  "author": "",
+  "author": "Vadim Gedz <vadims@linux-tech.io>",
+  "contributors": [
+    {
+      "name": "VVVi",
+      "url": "https://github.com/VVVi"
+    }
+  ],
   "license": "MIT",
-  "repository": "VVVi/clickhouse-migrations",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shini4i/gitlab-token-scope-adjuster.git"
+  },
   "dependencies": {
     "@clickhouse/client": "^0.2.9",
     "commander": "^11.1.0"
@@ -42,6 +45,9 @@
   "files": [
     "lib/**/*"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "clickhouse-migrations",
     "clickhouse-migration",
