@@ -10,7 +10,7 @@
   "scripts": {
     "build": "rm lib/*; tsc",
     "test": "jest --config jestconfig.json",
-    "coverage": "jest --config jestconfig.json --coverage",
+    "coverage": "jest --config jestconfig.json --coverage"
   },
   "author": "Vadim Gedz <vadims@linux-tech.io>",
   "contributors": [
