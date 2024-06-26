@@ -252,7 +252,7 @@ const migrate = () => {
     .requiredOption('--migrations-home <dir>', "Migrations' directory", process.env.CH_MIGRATIONS_HOME)
     .option('--engine <name>', 'Engine name', process.env.CH_ENGINE)
     .action(async (options: CliParameters) => {
-      await migration(options.migrationsHome, options.host, options.user, options.password, options.db);
+      await migration(options.migrationsHome, options.host, options.user, options.password, options.db, options.engine);
     });
 
   program.parse();

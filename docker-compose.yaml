@@ -1,0 +1,22 @@
+services:
+  clickhouse-server:
+    image: clickhouse/clickhouse-server:24.4-alpine
+    container_name: clickhouse-server
+    restart: always
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - clickhouse-config:/etc/clickhouse-server
+    environment:
+      CLICKHOUSE_DB: default
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: ""
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+
+volumes:
+  clickhouse-data:
+    driver: local
+  clickhouse-config:
+    driver: local
