@@ -20,3 +20,9 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm run coverage
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: shini4i/gitlab-token-scope-adjuster
+          files: ./coverage/lcov.info
