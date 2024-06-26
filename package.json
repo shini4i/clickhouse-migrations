@@ -10,6 +10,7 @@
   "scripts": {
     "build": "rm lib/*; tsc",
     "test": "jest --config jestconfig.json",
+    "coverage": "jest --coverage",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "eslint ./src --ext .ts",
     "prepare": "npm run build",
