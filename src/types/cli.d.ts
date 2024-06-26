@@ -29,7 +29,7 @@ type MigrationsRowData = {
 
 type CliParameters = {
   migrationsHome: string;
-  host: string;
+  url: string;
   user: string;
   password: string;
   db: string;
