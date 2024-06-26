@@ -28,11 +28,11 @@ const connect = (host: string, username: string, password: string, db_name?: str
   return createClient(db_params);
 };
 
-const create_db = async (host: string, username: string, password: string, db_name: string): Promise<void> => {
+const create_db = async (host: string, username: string, password: string, db_name: string, engine?: string): Promise<void> => {
   const client = connect(host, username, password);
 
-  // TODO: provided engine type over parameters
-  const q = `CREATE DATABASE IF NOT EXISTS "${db_name}" ENGINE = Atomic`;
+  let q = `CREATE DATABASE IF NOT EXISTS "${db_name}"`;
+  q += engine ? ` ENGINE = ${engine}` : '';
 
   try {
     await client.exec({
@@ -222,10 +222,11 @@ const migration = async (
   username: string,
   password: string,
   db_name: string,
+  engine?: string
 ): Promise<void> => {
   const migrations = get_migrations(migrations_home);
 
-  await create_db(host, username, password, db_name);
+  await create_db(host, username, password, db_name, engine);
 
   const client = connect(host, username, password, db_name);
 
@@ -249,6 +250,7 @@ const migrate = () => {
     .requiredOption('--password <password>', 'Password', process.env.CH_MIGRATIONS_PASSWORD)
     .requiredOption('--db <name>', 'Database name', process.env.CH_MIGRATIONS_DB)
     .requiredOption('--migrations-home <dir>', "Migrations' directory", process.env.CH_MIGRATIONS_HOME)
+    .option('--engine <name>', 'Engine name', process.env.CH_ENGINE)
     .action(async (options: CliParameters) => {
       await migration(options.migrationsHome, options.host, options.user, options.password, options.db);
     });

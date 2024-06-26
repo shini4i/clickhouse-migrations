@@ -33,6 +33,7 @@ type CliParameters = {
   user: string;
   password: string;
   db: string;
+  engine?: string;
 };
 
 type QueryError = {
