@@ -2,6 +2,7 @@
 .vscode
 
 coverage
+testdata
 node_modules
 lib
 .DS_Store
