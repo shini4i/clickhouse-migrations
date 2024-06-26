@@ -1,10 +1,6 @@
-# https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages#publishing-packages-to-the-npm-registry
-
 name: Publish npm to npmjs.com
 
 on:
-  workflow_dispatch:
-
   push:
     branches:
       - main
@@ -33,5 +29,5 @@ jobs:
 
       - name: Publish package to npmjs.com
         run: npm publish --access public
-          env:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
