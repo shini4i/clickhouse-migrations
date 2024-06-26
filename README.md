@@ -30,6 +30,7 @@ If the database provided in the `--db` option (or in `CH_MIGRATIONS_DB`) doesn't
       --password=<password>     Password
       --db=<name>               Database name
       --migrations-home=<dir>   Migrations' directory
+      --engine=<engine>         The engine to use for DB creation (optional)
 
   Environment variables
       Instead of options can be used environment variables.
@@ -38,6 +39,7 @@ If the database provided in the `--db` option (or in `CH_MIGRATIONS_DB`) doesn't
       CH_MIGRATIONS_PASSWORD    Password (--password)
       CH_MIGRATIONS_DB          Database name (--db)
       CH_MIGRATIONS_HOME        Migrations' directory (--migrations-home)
+      CH_ENGINE                 The engine to use for DB creation (optional)
 
   CLI examples
       clickhouse-migrations migrate --host=http://localhost:8123 
