@@ -1,12 +1,11 @@
-
 # clickhouse-migrations
 
-> ClickHouse Migrations CLI
+[![codecov](https://codecov.io/gh/shini4i/clickhouse-migrations/graph/badge.svg?token=8QWRD6EAQJ)](https://codecov.io/gh/shini4i/clickhouse-migrations)
 
 ## Install
 
 ```sh
-npm install --global clickhouse-migrations
+npm install -g @shini4i/clickhouse-migrations
 ```
 
 ## Usage
