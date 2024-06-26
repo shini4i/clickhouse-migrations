@@ -14,9 +14,9 @@ const log = (type: 'info' | 'error' = 'info', message: string, error?: string) =
   }
 };
 
-const connect = (host: string, username: string, password: string, db_name?: string): ClickHouseClient => {
+const connect = (url: string, username: string, password: string, db_name?: string): ClickHouseClient => {
   const db_params: ClickhouseDbParams = {
-    host,
+    url,
     username,
     password,
     application: 'clickhouse-migrations',
@@ -28,8 +28,8 @@ const connect = (host: string, username: string, password: string, db_name?: str
   return createClient(db_params);
 };
 
-const create_db = async (host: string, username: string, password: string, db_name: string, engine?: string): Promise<void> => {
-  const client = connect(host, username, password);
+const create_db = async (url: string, username: string, password: string, db_name: string, engine?: string): Promise<void> => {
+  const client = connect(url, username, password);
 
   let q = `CREATE DATABASE IF NOT EXISTS "${db_name}"`;
   q += engine ? ` ENGINE = ${engine}` : '';
@@ -218,7 +218,7 @@ const apply_migrations = async (
 
 const migration = async (
   migrations_home: string,
-  host: string,
+  url: string,
   username: string,
   password: string,
   db_name: string,
@@ -226,9 +226,9 @@ const migration = async (
 ): Promise<void> => {
   const migrations = get_migrations(migrations_home);
 
-  await create_db(host, username, password, db_name, engine);
+  await create_db(url, username, password, db_name, engine);
 
-  const client = connect(host, username, password, db_name);
+  const client = connect(url, username, password, db_name);
 
   await init_migration_table(client);
 
@@ -245,7 +245,7 @@ const migrate = () => {
   program
     .command('migrate')
     .description('Apply migrations.')
-    .requiredOption('--host <name>', 'Clickhouse hostname (ex: http://clickhouse:8123)', process.env.CH_MIGRATIONS_HOST)
+    .requiredOption('--url <url>', 'Clickhouse URL (ex: http://clickhouse:8123)', process.env.CH_MIGRATIONS_URL)
     .requiredOption('--user <name>', 'Username', process.env.CH_MIGRATIONS_USER)
     .requiredOption('--password <password>', 'Password', process.env.CH_MIGRATIONS_PASSWORD)
     .requiredOption('--db <name>', 'Database name', process.env.CH_MIGRATIONS_DB)

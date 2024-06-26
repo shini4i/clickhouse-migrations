@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 type ClickhouseDbParams = {
-  host: string;
+  url: string;
   connect_timeout?: number;
   request_timeout?: number;
   max_open_connections?: number;

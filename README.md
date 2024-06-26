@@ -23,7 +23,7 @@ If the database provided in the `--db` option (or in `CH_MIGRATIONS_DB`) doesn't
     $ clickhouse-migrations migrate <options>
 
   Required options
-      --host=<name>             Clickhouse hostname 
+      --url=<url>               Clickhouse URL 
                                   (ex. https://clickhouse:8123)
       --user=<name>             Username
       --password=<password>     Password
@@ -41,7 +41,7 @@ If the database provided in the `--db` option (or in `CH_MIGRATIONS_DB`) doesn't
       CH_ENGINE                 The engine to use for DB creation (optional)
 
   CLI examples
-      clickhouse-migrations migrate --host=http://localhost:8123 
+      clickhouse-migrations migrate --url=http://localhost:8123 
       --user=default --password='' --db=analytics 
       --migrations-home=/app/clickhouse/migrations
 
