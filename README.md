@@ -33,7 +33,7 @@ If the database provided in the `--db` option (or in `CH_MIGRATIONS_DB`) doesn't
 
   Environment variables
       Instead of options can be used environment variables.
-      CH_MIGRATIONS_URL         Clickhouse hostname (--host)
+      CH_MIGRATIONS_URL         Clickhouse hostname (--url)
       CH_MIGRATIONS_USER        Username (--user)
       CH_MIGRATIONS_PASSWORD    Password (--password)
       CH_MIGRATIONS_DB          Database name (--db)
