@@ -49,3 +49,5 @@ jobs:
           tags: |
             ghcr.io/shini4i/clickhouse-migrations:${{ github.ref_name }}
           push: true
+          build-args: |
+            VERSION=${{ github.ref_name }}
