@@ -240,7 +240,7 @@ const migration = async (
 const migrate = () => {
   const program = new Command();
 
-  program.name('clickhouse-migrations').description('ClickHouse migrations.').version('0.1.13');
+  program.name('clickhouse-migrations').description('ClickHouse migrations.').version('0.1.15');
 
   program
     .command('migrate')
