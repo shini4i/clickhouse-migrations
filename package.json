@@ -1,6 +1,6 @@
 {
   "name": "@shini4i/clickhouse-migrations",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "ClickHouse Migrations",
   "bin": {
     "clickhouse-migrations": "lib/cli.js"
