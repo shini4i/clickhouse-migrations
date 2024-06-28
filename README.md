@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="https://raw.githubusercontent.com/ClickHouse/clickhouse-js/e88d3eb741d14d907fea2454a56523e876e2ae12/.static/logo.svg" width="200px" align="center">
+
 # clickhouse-migrations
 
 <a href="https://www.npmjs.com/package/@shini4i/clickhouse-migrations">
@@ -76,3 +78,11 @@ CREATE TABLE IF NOT EXISTS events (
   event JSON
 );
 ```
+
+## Acknowledgements
+
+This project is a fork of [clickhouse-migrations](https://github.com/VVVi/clickhouse-migrations), originally developed by [VVVi](https://github.com/VVVi).
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
