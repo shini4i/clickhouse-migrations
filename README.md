@@ -38,27 +38,29 @@ If the database provided in the `--db` option (or in `CH_MIGRATIONS_DB`) doesn't
     $ clickhouse-migrations migrate <options>
 
   Required flags
-      --url=<url>               Clickhouse URL (ex. https://clickhouse:8123)
-      --user=<name>             Username
-      --db=<name>               Database name
-      --migrations-home=<dir>   Migrations' directory
+      --url=<url>                       Clickhouse URL (ex. https://clickhouse:8123)
+      --user=<name>                     Username
+      --db=<name>                       Database name
+      --migrations-home=<dir>           Migrations' directory
       
   Optional flags
-      --password=<password>     Password
-      --engine=<engine>         The engine to use for DB creation
+      --password=<password>             Password
+      --engine=<engine>                 The engine to use for DB creation
+      --request-timeout=<milliseconds>  Request timeout in milliseconds
     
   Environment variables
       Instead of options can be used environment variables.
-      CH_MIGRATIONS_URL         Clickhouse hostname (--url)
-      CH_MIGRATIONS_USER        Username (--user)
-      CH_MIGRATIONS_PASSWORD    Password (--password)
-      CH_MIGRATIONS_DB          Database name (--db)
-      CH_MIGRATIONS_HOME        Migrations' directory (--migrations-home)
-      CH_MIGRATIONS_ENGINE      The engine to use for DB creation (optional)
+      CH_MIGRATIONS_URL                 Clickhouse hostname (--url)
+      CH_MIGRATIONS_USER                Username (--user)
+      CH_MIGRATIONS_PASSWORD            Password (--password)
+      CH_MIGRATIONS_DB                  Database name (--db)
+      CH_MIGRATIONS_HOME                Migrations' directory (--migrations-home)
+      CH_MIGRATIONS_ENGINE              The engine to use for DB creation (optional)
+      CH_MIGRATIONS_REQUEST_TIMEOUT     Clickhouse client request timeout (optional)
 
   CLI examples
       clickhouse-migrations migrate --url=http://localhost:8123 
-      --user=default -db=analytics 
+      --user=default --db=analytics 
       --migrations-home=/app/clickhouse/migrations
 
       clickhouse-migrations migrate 

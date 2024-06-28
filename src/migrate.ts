@@ -1,4 +1,5 @@
 import type { ClickHouseClient } from '@clickhouse/client';
+import { ClickHouseClientConfigOptions } from '@clickhouse/client';
 import { createClient } from '@clickhouse/client';
 import { Command } from 'commander';
 import fs from 'fs';
@@ -14,8 +15,8 @@ const log = (type: 'info' | 'error' = 'info', message: string, error?: string) =
   }
 };
 
-const connect = (url: string, username: string, password?: string, db_name?: string): ClickHouseClient => {
-  const db_params: ClickhouseDbParams = {
+const connect = (url: string, username: string, password?: string, db_name?: string, requestTimeout?: number): ClickHouseClient => {
+  const db_params: ClickHouseClientConfigOptions = {
     url,
     username,
     password,
@@ -25,11 +26,16 @@ const connect = (url: string, username: string, password?: string, db_name?: str
   if (db_name) {
     db_params.database = db_name;
   }
+
+  if (requestTimeout) {
+    db_params.request_timeout = requestTimeout;
+  }
+
   return createClient(db_params);
 };
 
-const create_db = async (url: string, username: string, db_name: string, password?: string, engine?: string): Promise<void> => {
-  const client = connect(url, username, password);
+const create_db = async (url: string, username: string, db_name: string, password?: string, engine?: string, requestTimeout?: number): Promise<void> => {
+  const client = connect(url, username, password, "", requestTimeout);
 
   let q = `CREATE DATABASE IF NOT EXISTS "${db_name}"`;
   q += engine ? ` ENGINE = ${engine}` : '';
@@ -222,13 +228,14 @@ const migration = async (
   username: string,
   db_name: string,
   password?: string,
-  engine?: string
+  engine?: string,
+  requestTimeout?: number
 ): Promise<void> => {
   const migrations = get_migrations(migrations_home);
 
-  await create_db(url, username, db_name, password, engine);
+  await create_db(url, username, db_name, password, engine, requestTimeout);
 
-  const client = connect(url, username, password, db_name);
+  const client = connect(url, username, password, db_name, requestTimeout);
 
   await init_migration_table(client);
 
@@ -251,8 +258,14 @@ const migrate = () => {
     .requiredOption('--migrations-home <dir>', "Migrations' directory", process.env.CH_MIGRATIONS_HOME)
     .option('--password <password>', 'Password', process.env.CH_MIGRATIONS_PASSWORD)
     .option('--engine <name>', 'Engine name', process.env.CH_MIGRATIONS_ENGINE)
+    .option(
+      "--request-timeout <milliseconds>",
+      "Request timeout",
+      (value) => Number(value),
+      process.env.CH_MIGRATIONS_REQUEST_TIMEOUT ? Number(process.env.CH_MIGRATIONS_REQUEST_TIMEOUT) : undefined,
+    )
     .action(async (options: CliParameters) => {
-      await migration(options.migrationsHome, options.url, options.user, options.db, options.password, options.engine);
+      await migration(options.migrationsHome, options.url, options.user, options.db, options.password, options.engine, options.requestTimeout);
     });
 
   program.parse();
