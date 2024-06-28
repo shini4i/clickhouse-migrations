@@ -24,7 +24,7 @@ describe('Migration tests', () => {
     const execSpy = jest.spyOn(createClient1, 'exec');
     const insertSpy = jest.spyOn(createClient1, 'insert');
 
-    await migration('tests/migrations/one', 'http://sometesthost:8123', 'default', '', 'analytics');
+    await migration('tests/migrations/one', 'http://sometesthost:8123', 'default', 'analytics');
 
     expect(execSpy).toHaveBeenCalledTimes(3);
     expect(querySpy).toHaveBeenCalledTimes(1);

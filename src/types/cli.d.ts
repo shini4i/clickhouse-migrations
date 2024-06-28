@@ -7,7 +7,7 @@ type ClickhouseDbParams = {
   max_open_connections?: number;
   compression?: { response?: boolean; request?: boolean };
   username: string;
-  password: string;
+  password?: string;
   application?: string;
   database?: string;
   clickhouse_settings?: ClickHouseSettings;
@@ -31,8 +31,8 @@ type CliParameters = {
   migrationsHome: string;
   url: string;
   user: string;
-  password: string;
   db: string;
+  password?: string;
   engine?: string;
 };
 
