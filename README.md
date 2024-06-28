@@ -46,6 +46,7 @@ If the database provided in the `--db` option (or in `CH_MIGRATIONS_DB`) doesn't
   Optional flags
       --password=<password>     Password
       --engine=<engine>         The engine to use for DB creation
+      --timeout=<milliseconds>  Request timeout in milliseconds
     
   Environment variables
       Instead of options can be used environment variables.
@@ -55,6 +56,7 @@ If the database provided in the `--db` option (or in `CH_MIGRATIONS_DB`) doesn't
       CH_MIGRATIONS_DB          Database name (--db)
       CH_MIGRATIONS_HOME        Migrations' directory (--migrations-home)
       CH_MIGRATIONS_ENGINE      The engine to use for DB creation (optional)
+      CH_MIGRATIONS_TIMEOUT     Clickhouse client request timeout (optional)
 
   CLI examples
       clickhouse-migrations migrate --url=http://localhost:8123 
