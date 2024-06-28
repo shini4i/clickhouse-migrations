@@ -258,9 +258,13 @@ const migrate = () => {
     .requiredOption('--migrations-home <dir>', "Migrations' directory", process.env.CH_MIGRATIONS_HOME)
     .option('--password <password>', 'Password', process.env.CH_MIGRATIONS_PASSWORD)
     .option('--engine <name>', 'Engine name', process.env.CH_MIGRATIONS_ENGINE)
-    .option("--request-timeout <milliseconds>", "Request timeout", process.env.CH_MIGRATIONS_REQUEST_TIMEOUT)
+    .option(
+      "--request-timeout <milliseconds>",
+      "Request timeout",
+      (value) => Number(value),
+      process.env.CH_MIGRATIONS_REQUEST_TIMEOUT ? Number(process.env.CH_MIGRATIONS_REQUEST_TIMEOUT) : undefined,
+    )
     .action(async (options: CliParameters) => {
-      options.requestTimeout = options.requestTimeout ? Number(options.requestTimeout) : undefined;
       await migration(options.migrationsHome, options.url, options.user, options.db, options.password, options.engine, options.requestTimeout);
     });
 
