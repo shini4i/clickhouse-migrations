@@ -2,10 +2,18 @@
 
 # clickhouse-migrations
 
-![NPM Version](https://img.shields.io/npm/v/%40shini4i%2Fclickhouse-migrations)
-![NPM Downloads](https://img.shields.io/npm/dm/%40shini4i%2Fclickhouse-migrations)
-[![codecov](https://codecov.io/gh/shini4i/clickhouse-migrations/graph/badge.svg?token=8QWRD6EAQJ)](https://codecov.io/gh/shini4i/clickhouse-migrations)
-![GitHub License](https://img.shields.io/github/license/shini4i/clickhouse-migrations)
+<a href="https://www.npmjs.com/package/@shini4i/clickhouse-migrations">
+<img alt="NPM Version" src="https://img.shields.io/npm/v/%40shini4i%2Fclickhouse-migrations?color=%233178C6&logo=npm">
+</a>
+<a href="https://www.npmjs.com/package/@shini4i/clickhouse-migrations">
+<img alt="NPM Downloads" src="https://img.shields.io/npm/dw/%40shini4i%2Fclickhouse-migrations?color=%233178C6&logo=npm">
+</a>
+<a href="https://codecov.io/gh/shini4i/clickhouse-migrations">
+<img alt="CodeCov coverage" src="https://codecov.io/gh/shini4i/clickhouse-migrations/graph/badge.svg?token=8QWRD6EAQJ">
+</a>
+<a href="https://github.com/shini4i/clickhouse-migrations/blob/main/LICENSE">
+<img alt="Project LICENSE" src="https://img.shields.io/github/license/shini4i/clickhouse-migrations">
+</a>
 
 </div>
 
