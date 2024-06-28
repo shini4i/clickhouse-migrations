@@ -14,7 +14,7 @@ const log = (type: 'info' | 'error' = 'info', message: string, error?: string) =
   }
 };
 
-const connect = (url: string, username: string, password: string, db_name?: string): ClickHouseClient => {
+const connect = (url: string, username: string, password?: string, db_name?: string): ClickHouseClient => {
   const db_params: ClickhouseDbParams = {
     url,
     username,
@@ -28,7 +28,7 @@ const connect = (url: string, username: string, password: string, db_name?: stri
   return createClient(db_params);
 };
 
-const create_db = async (url: string, username: string, password: string, db_name: string, engine?: string): Promise<void> => {
+const create_db = async (url: string, username: string, db_name: string, password?: string, engine?: string): Promise<void> => {
   const client = connect(url, username, password);
 
   let q = `CREATE DATABASE IF NOT EXISTS "${db_name}"`;
@@ -220,13 +220,13 @@ const migration = async (
   migrations_home: string,
   url: string,
   username: string,
-  password: string,
   db_name: string,
+  password?: string,
   engine?: string
 ): Promise<void> => {
   const migrations = get_migrations(migrations_home);
 
-  await create_db(url, username, password, db_name, engine);
+  await create_db(url, username, db_name, password, engine);
 
   const client = connect(url, username, password, db_name);
 
@@ -247,12 +247,12 @@ const migrate = () => {
     .description('Apply migrations.')
     .requiredOption('--url <url>', 'Clickhouse URL (ex: http://clickhouse:8123)', process.env.CH_MIGRATIONS_URL)
     .requiredOption('--user <name>', 'Username', process.env.CH_MIGRATIONS_USER)
-    .requiredOption('--password <password>', 'Password', process.env.CH_MIGRATIONS_PASSWORD)
     .requiredOption('--db <name>', 'Database name', process.env.CH_MIGRATIONS_DB)
     .requiredOption('--migrations-home <dir>', "Migrations' directory", process.env.CH_MIGRATIONS_HOME)
-    .option('--engine <name>', 'Engine name', process.env.CH_ENGINE)
+    .option('--password <password>', 'Password', process.env.CH_MIGRATIONS_PASSWORD)
+    .option('--engine <name>', 'Engine name', process.env.CH_MIGRATIONS_ENGINE)
     .action(async (options: CliParameters) => {
-      await migration(options.migrationsHome, options.url, options.user, options.password, options.db, options.engine);
+      await migration(options.migrationsHome, options.url, options.user, options.db, options.password, options.engine);
     });
 
   program.parse();
