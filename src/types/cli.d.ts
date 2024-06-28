@@ -18,7 +18,7 @@ type CliParameters = {
   db: string;
   password?: string;
   engine?: string;
-  timeout?: number;
+  requestTimeout?: number;
 };
 
 type QueryError = {

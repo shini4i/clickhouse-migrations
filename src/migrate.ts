@@ -15,7 +15,7 @@ const log = (type: 'info' | 'error' = 'info', message: string, error?: string) =
   }
 };
 
-const connect = (url: string, username: string, password?: string, db_name?: string, timeout?: number): ClickHouseClient => {
+const connect = (url: string, username: string, password?: string, db_name?: string, requestTimeout?: number): ClickHouseClient => {
   const db_params: ClickHouseClientConfigOptions = {
     url,
     username,
@@ -27,15 +27,15 @@ const connect = (url: string, username: string, password?: string, db_name?: str
     db_params.database = db_name;
   }
 
-  if (timeout) {
-    db_params.request_timeout = timeout;
+  if (requestTimeout) {
+    db_params.request_timeout = requestTimeout;
   }
 
   return createClient(db_params);
 };
 
-const create_db = async (url: string, username: string, db_name: string, password?: string, engine?: string, timeout?: number): Promise<void> => {
-  const client = connect(url, username, password, "", timeout);
+const create_db = async (url: string, username: string, db_name: string, password?: string, engine?: string, requestTimeout?: number): Promise<void> => {
+  const client = connect(url, username, password, "", requestTimeout);
 
   let q = `CREATE DATABASE IF NOT EXISTS "${db_name}"`;
   q += engine ? ` ENGINE = ${engine}` : '';
@@ -229,13 +229,13 @@ const migration = async (
   db_name: string,
   password?: string,
   engine?: string,
-  timeout?: number
+  requestTimeout?: number
 ): Promise<void> => {
   const migrations = get_migrations(migrations_home);
 
-  await create_db(url, username, db_name, password, engine, timeout);
+  await create_db(url, username, db_name, password, engine, requestTimeout);
 
-  const client = connect(url, username, password, db_name, timeout);
+  const client = connect(url, username, password, db_name, requestTimeout);
 
   await init_migration_table(client);
 
@@ -258,10 +258,10 @@ const migrate = () => {
     .requiredOption('--migrations-home <dir>', "Migrations' directory", process.env.CH_MIGRATIONS_HOME)
     .option('--password <password>', 'Password', process.env.CH_MIGRATIONS_PASSWORD)
     .option('--engine <name>', 'Engine name', process.env.CH_MIGRATIONS_ENGINE)
-    .option("--timeout <milliseconds>", "Request timeout", process.env.CH_MIGRATIONS_TIMEOUT)
+    .option("--request-timeout <milliseconds>", "Request timeout", process.env.CH_MIGRATIONS_REQUEST_TIMEOUT)
     .action(async (options: CliParameters) => {
-      options.timeout = options.timeout ? Number(options.timeout) : undefined;
-      await migration(options.migrationsHome, options.url, options.user, options.db, options.password, options.engine, options.timeout);
+      options.requestTimeout = options.requestTimeout ? Number(options.requestTimeout) : undefined;
+      await migration(options.migrationsHome, options.url, options.user, options.db, options.password, options.engine, options.requestTimeout);
     });
 
   program.parse();
